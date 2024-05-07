@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
     package="com.example.baseapp">
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
@@ -25,6 +25,7 @@
         <activity android:name=".MenuActivity"/>
         <activity android:name=".ShakeDetector"/>
         <activity android:name=".TouchCountActivity"/>
+        <activity android:name=".CompassSensor"/>
 
     </application>
 

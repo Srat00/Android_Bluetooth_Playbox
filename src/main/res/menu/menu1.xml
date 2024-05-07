@@ -5,7 +5,9 @@
         android:id="@+id/action_touch_count"
         android:title="Touch Count"/>
     <item
-
         android:id="@+id/action_shake"
         android:title="Shake Count"/>
+    <item
+        android:id="@+id/action_compass"
+        android:title="Compass"/>
 </menu>

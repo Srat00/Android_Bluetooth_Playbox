@@ -25,6 +25,9 @@ public class MenuActivity extends AppCompatActivity {
         } else if (id == R.id.action_shake) {
             startActivity(new Intent(this, ShakeDetector.class));
             return true;
+        }else if (id == R.id.action_compass) {
+            startActivity(new Intent(this, CompassSensor.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
