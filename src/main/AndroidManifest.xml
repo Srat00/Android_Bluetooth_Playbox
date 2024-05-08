@@ -26,6 +26,7 @@
         <activity android:name=".ShakeDetector"/>
         <activity android:name=".TouchCountActivity"/>
         <activity android:name=".Compass"/>
+        <activity android:name=".ReactionTimeActivity" />
 
 
     </application>

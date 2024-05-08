@@ -10,4 +10,9 @@
     <item
         android:id="@+id/action_compass"
         android:title="Compass"/>
+    <item
+        android:id="@+id/action_of_time_respond"
+        android:title="Time_respond"/>
+
+
 </menu>
