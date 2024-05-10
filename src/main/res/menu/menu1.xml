@@ -14,5 +14,10 @@
         android:id="@+id/action_of_time_respond"
         android:title="Time_respond"/>
 
+    <item android:id="@+id/action_of_gyro"
+        android:title="Start Rolling"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+
 
 </menu>

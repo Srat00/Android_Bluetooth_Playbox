@@ -5,6 +5,8 @@
 
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+
 
     <application
         android:allowBackup="true"
@@ -27,6 +29,7 @@
         <activity android:name=".TouchCountActivity"/>
         <activity android:name=".Compass"/>
         <activity android:name=".ReactionTimeActivity" />
+        <activity android:name=".GyroScope" />
 
 
     </application>

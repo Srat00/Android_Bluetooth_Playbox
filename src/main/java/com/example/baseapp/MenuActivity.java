@@ -31,6 +31,9 @@ public class MenuActivity extends AppCompatActivity {
         }else if (id == R.id.action_of_time_respond) {
             startActivity(new Intent(this, ReactionTimeActivity.class));
             return true;
+        }else if (id == R.id.action_of_gyro) {
+            startActivity(new Intent(this, GyroScope.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
