@@ -12,8 +12,7 @@ import android.view.Display;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GyroScope extends AppCompatActivity {
-    Display display = getWindowManager().getDefaultDisplay();
-    Point size = new Point();
+
 
     private SensorManager sensorManager;
     private Sensor gyroscopeSensor;
@@ -22,6 +21,8 @@ public class GyroScope extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
         super.onCreate(savedInstanceState);
         display.getSize(size);
         int screenWidth = size.x;

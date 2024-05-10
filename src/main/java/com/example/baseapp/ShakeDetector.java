@@ -6,12 +6,15 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Random;
 
 
 public class ShakeDetector extends AppCompatActivity implements SensorEventListener {
@@ -20,10 +23,14 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
 
     private TextView shakeCountTextView;
     private int shakeCount = 0;
+    private int finalShakeCount = 0;
 
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private long mShakeTimestamp;
+    private boolean isTimerRunning = false;
+    private Handler timerHandler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,7 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
         registerSensor();
 
         updateShakeCountUI();
+        startShakeDetectionTimer();
     }
 
     @Override
@@ -48,8 +56,20 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onPause() {
         super.onPause();
+        timerHandler.removeCallbacks(stopShakeDetection);
         unregisterSensor();
     }
+
+
+    private Runnable stopShakeDetection = new Runnable() {
+        @Override
+        public void run() {
+            unregisterSensor();
+            isTimerRunning = false;
+            finalShakeCount = shakeCount;
+            Toast.makeText(ShakeDetector.this, "Shake detection stopped", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private void registerSensor() {
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
@@ -66,6 +86,9 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (!isTimerRunning) {
+            return; // 타이머가 종료되면 더 이상 흔들림을 감지하지 않습니다.
+        }
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
@@ -91,7 +114,12 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             }
         }
     }
-
+    private void startShakeDetectionTimer() {
+        int randomDelay = new Random().nextInt(5000) + 5000;  // 5 to 10 seconds
+        timerHandler.postDelayed(stopShakeDetection, randomDelay);
+        registerSensor();
+        isTimerRunning = true;
+    }
     private void updateShakeCountUI() {
         shakeCountTextView.setText("Shake Count: " + shakeCount);
     }

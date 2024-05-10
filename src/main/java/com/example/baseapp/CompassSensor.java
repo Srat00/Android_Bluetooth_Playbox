@@ -50,7 +50,7 @@ public class CompassSensor implements SensorEventListener {
         if (lastAccelerometerSet && lastMagnetometerSet) {
             SensorManager.getRotationMatrix(r, null, lastAccelerometer, lastMagnetometer);
             SensorManager.getOrientation(r, orientation);
-            float azimuth = (float) (Math.toDegrees(orientation[0]) + 360) % 360;
+            int azimuth = (int) (Math.toDegrees(orientation[0]) + 360) % 360;
             compassListener.onNewAzimuth(azimuth);
         }
     }
