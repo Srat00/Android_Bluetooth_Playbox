@@ -1,32 +1,50 @@
-package com.example.gyrosensor;
+package com.example.opensourceproject;
 
-import android.util.Log;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
-    Button button1;
+import androidx.appcompat.app.AppCompatActivity;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button Touch = findViewById(R.id.touch_button);
+        Button Rhythm = findViewById(R.id.rhythm_button);
+        Button Vibrate = findViewById(R.id.vibrate_button);
 
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        //Touch 페이지 이동
+        Touch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Vibrator 객체 가져오기
-                Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                // 진동 실행
-                if (vibrator != null) {
-                    vibrator.vibrate(500); // 0.5초간 진동
-                    Log.d("Vibration", "Vibration started");
-                }
+                // 첫 번째 버튼 클릭 시 실행할 내용
+                Intent intent = new Intent(MainActivity.this, TouchActivity.class);
+                startActivity(intent);
             }
         });
+
+        //Rhythm 페이지 이동
+        Rhythm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 두 번째 버튼 클릭 시 실행할 내용
+                Intent intent = new Intent(MainActivity.this, RhythmActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //Vibrate 페이지 이동
+        Vibrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 두 번째 버튼 클릭 시 실행할 내용
+                Intent intent = new Intent(MainActivity.this, VibrateActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

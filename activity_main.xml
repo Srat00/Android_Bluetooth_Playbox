@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- 첫 번째 버튼 -->
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/touch_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="306dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Touch"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- 두 번째 버튼 -->
+    <Button
+        android:id="@+id/rhythm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rhythm"
+        app:layout_constraintTop_toBottomOf="@id/touch_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- 세 번째 버튼 -->
+    <Button
+        android:id="@+id/vibrate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vibrate"
+        app:layout_constraintTop_toBottomOf="@id/rhythm_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
