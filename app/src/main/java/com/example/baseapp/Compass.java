@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Compass extends AppCompatActivity implements CompassSensor.CompassListener {
     private CompassSensor compassSensor;
     private TextView azimuthView;
-    private TextView azimuthViewwwwws;
+    private TextView azimuthViewwwwwss;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
