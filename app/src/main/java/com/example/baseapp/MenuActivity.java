@@ -40,6 +40,9 @@ public class MenuActivity extends AppCompatActivity {
         }else if (id == R.id.action_vibrate) {
             startActivity(new Intent(this, VibrateActivity.class));
             return true;
+        }else if (id == R.id.action_touch2) {
+            startActivity(new Intent(this,TouchActivity_dongwon.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

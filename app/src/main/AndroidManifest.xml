@@ -32,6 +32,7 @@
         <activity android:name=".GyroScope" />
         <activity android:name=".RhythmActivity"/>
         <activity android:name=".VibrateActivity"/>
+        <activity android:name=".TouchActivity_dongwon"/>
 
 
     </application>
