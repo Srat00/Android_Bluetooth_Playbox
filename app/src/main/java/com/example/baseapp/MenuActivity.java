@@ -34,6 +34,12 @@ public class MenuActivity extends AppCompatActivity {
         }else if (id == R.id.action_of_gyro) {
             startActivity(new Intent(this, GyroScope.class));
             return true;
+        }else if (id == R.id.action_rhythm) {
+            startActivity(new Intent(this, RhythmActivity.class));
+            return true;
+        }else if (id == R.id.action_vibrate) {
+            startActivity(new Intent(this, VibrateActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
