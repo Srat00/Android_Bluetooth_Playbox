@@ -6,9 +6,9 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="122dp"
-        android:layout_height="58dp"
-        android:text="@string/strBtn1"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:text="누르면 시작합니다!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,12 +18,14 @@
 
     <TextView
         android:id="@+id/shakeCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
         android:text="Shake Count: 0"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toBottomOf="@id/button1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

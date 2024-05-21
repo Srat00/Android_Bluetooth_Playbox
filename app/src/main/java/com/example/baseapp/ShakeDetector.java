@@ -14,14 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Random;
-
-
 public class ShakeDetector extends AppCompatActivity implements SensorEventListener {
     private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
     private static final int SHAKE_SLOP_TIME_MS = 50;
+    private static final int DETECTION_DURATION_MS = 10000; // 10 seconds
 
     private TextView shakeCountTextView;
+    private TextView timerTextView;
     private int shakeCount = 0;
     private int finalShakeCount = 0;
 
@@ -30,7 +29,9 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
     private long mShakeTimestamp;
     private boolean isTimerRunning = false;
     private Handler timerHandler = new Handler();
+    private Button startButton;
 
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,19 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
 
         shakeCountTextView = findViewById(R.id.shakeCountTextView);
 
+        startButton = findViewById(R.id.button1);
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        registerSensor();
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startShakeDetectionTimer();
+            }
+        });
 
         updateShakeCountUI();
-        startShakeDetectionTimer();
     }
 
     @Override
@@ -60,7 +68,6 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
         unregisterSensor();
     }
 
-
     private Runnable stopShakeDetection = new Runnable() {
         @Override
         public void run() {
@@ -68,6 +75,23 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             isTimerRunning = false;
             finalShakeCount = shakeCount;
             Toast.makeText(ShakeDetector.this, "Shake detection stopped", Toast.LENGTH_SHORT).show();
+            startButton.setText("누르면 시작합니다!");
+        }
+    };
+
+    private Runnable updateTimer = new Runnable() {
+        @Override
+        public void run() {
+            if (isTimerRunning) {
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                long remainingTime = DETECTION_DURATION_MS - elapsedTime;
+                if (remainingTime > 0) {
+                    startButton.setText("Time remaining: " + remainingTime / 1000 + " seconds");
+                    timerHandler.postDelayed(this, 100);
+                } else {
+                    startButton.setText("Time remaining: 0 seconds");
+                }
+            }
         }
     };
 
@@ -114,12 +138,21 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             }
         }
     }
+
     private void startShakeDetectionTimer() {
-        int randomDelay = new Random().nextInt(5000) + 5000;  // 5 to 10 seconds
-        timerHandler.postDelayed(stopShakeDetection, randomDelay);
+        if (isTimerRunning) {
+            return; // 이미 타이머가 실행 중이면 다시 시작하지 않음
+        }
+        shakeCount = 0;
+        updateShakeCountUI();
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(stopShakeDetection, DETECTION_DURATION_MS);
+        timerHandler.post(updateTimer); // Start the timer update runnable
         registerSensor();
         isTimerRunning = true;
+        Toast.makeText(ShakeDetector.this, "Shake detection started", Toast.LENGTH_SHORT).show();
     }
+
     private void updateShakeCountUI() {
         shakeCountTextView.setText("Shake Count: " + shakeCount);
     }

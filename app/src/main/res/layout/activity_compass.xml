@@ -1,13 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CompassSensor">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/azimuth_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Azimuth: 0 degrees"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/target_azimuth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Target: 0 degrees"
         android:textSize="24sp"
-        android:layout_centerInParent="true" />
-</RelativeLayout>
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/timer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time: 0 seconds"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start" />
+</LinearLayout>
