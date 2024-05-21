@@ -18,6 +18,10 @@
         android:title="Start Rolling"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
-
-
+    <item android:id="@+id/action_rhythm"
+        android:title="Rhythm"/>
+    <item android:id="@+id/action_vibrate"
+        android:title="Vibrate"/>
+    <item android:id="@+id/action_touch2"
+        android:title="Touch2"/>
 </menu>
