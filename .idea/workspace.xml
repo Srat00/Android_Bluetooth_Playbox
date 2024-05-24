@@ -12,13 +12,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="890c4147-46d8-4afc-9df3-20e8d8b9c2df" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/Compass.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/Compass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/CompassSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/CompassSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/ReactionTimeTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/ReactionTimeTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/ShakeDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/baseapp/ShakeDetector.java" afterDir="false" />
-    </list>
+    <list default="true" id="890c4147-46d8-4afc-9df3-20e8d8b9c2df" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -37,7 +37,6 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
         this.enemy_score = enemy_score;
     }
     public void startAlarm(){
-
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
