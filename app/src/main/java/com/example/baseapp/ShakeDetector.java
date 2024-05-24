@@ -33,6 +33,18 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
 
     private long startTime;
 
+    int my_score=0,enemy_score=0;
+
+    public int getScore() {
+        return my_score;
+    }
+
+    public void setScore(int enemy_score) {
+        this.enemy_score = enemy_score;
+    }
+    public void startAlarm(){
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +152,7 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
     }
 
     private void startShakeDetectionTimer() {
+        startAlarm();
         if (isTimerRunning) {
             return; // 이미 타이머가 실행 중이면 다시 시작하지 않음
         }
@@ -151,9 +164,12 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
         registerSensor();
         isTimerRunning = true;
         Toast.makeText(ShakeDetector.this, "Shake detection started", Toast.LENGTH_SHORT).show();
+
     }
 
     private void updateShakeCountUI() {
+        my_score=shakeCount;
         shakeCountTextView.setText("Shake Count: " + shakeCount);
+
     }
 }

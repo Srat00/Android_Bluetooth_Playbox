@@ -11,7 +11,18 @@ public class ReactionTimeTester {
     private Button changeButton;
     private long startTime;
     private boolean isReadyToMeasure = false;
+    long my_score=0,enemy_score=0;
 
+    public long getScore() {
+        return my_score;
+    }
+
+    public void setScore(long enemy_score) {
+        this.enemy_score = enemy_score;
+    }
+    public void startAlarm(){
+
+    };
     public ReactionTimeTester(Context context, Button changeButton) {
         this.context = context;
         this.changeButton = changeButton;
@@ -19,6 +30,7 @@ public class ReactionTimeTester {
     }
 
     public void startReactionTest() {
+        startAlarm();
         changeButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray)); // 초기 색
         changeButton.setText("초록색이 나오면 이 버튼을 터치하세요!");
         changeButton.setEnabled(false); // 시작 버튼 비활성화
@@ -38,6 +50,7 @@ public class ReactionTimeTester {
         if (isReadyToMeasure) {
             long reactionTime = System.currentTimeMillis() - startTime;
             changeButton.setText("Reaction Time: " + reactionTime + " ms");
+            my_score=reactionTime;
             changeButton.setEnabled(false);
             isReadyToMeasure = false;
         }

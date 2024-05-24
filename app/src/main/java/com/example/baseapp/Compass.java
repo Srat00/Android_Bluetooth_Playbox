@@ -26,6 +26,19 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
     private static final int RANGE_DURATION_MS = 1000; // 1 second
     private static final int RANGE_THRESHOLD_DEGREES = 5; // 5 degrees
 
+    long enemy_score=0;
+    long my_score=0;
+
+    public long getScore() {
+        return my_score;
+    }
+
+    public void setScore(long enemy_score) {
+        this.enemy_score = enemy_score;
+    }
+    public void startAlarm(){
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +90,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
     }
 
     private void startGame() {
+        startAlarm();
         setNewTargetAzimuth();
         startTime = System.currentTimeMillis();
         updateTimer();
@@ -119,7 +133,8 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
         public void run() {
             if (isTargetSet) {
                 long elapsedTime = System.currentTimeMillis() - startTime;
-                timerView.setText("Time: " + elapsedTime / 1000.0 + " seconds");
+                timerView.setText("걸린시간: " + elapsedTime / 1000.0 + " 초");
+                my_score= (long) (elapsedTime/1000.0);
                 handler.postDelayed(this, 100);
             }
         }
