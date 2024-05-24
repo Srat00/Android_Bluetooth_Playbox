@@ -19,7 +19,7 @@ public class CompassSensor implements SensorEventListener {
     private float[] orientation = new float[3];
 
     public interface CompassListener {
-        void onNewAzimuth(float azimuth);
+        void onNewAzimuth(int azimuth);
     }
 
     public CompassSensor(Context context, CompassListener listener) {

@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/azimuth_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Azimuth: 0 degrees"
+        android:text="보고있는방향: 0 도"
         android:textSize="24sp" />
 
     <TextView
@@ -29,9 +29,10 @@
         android:textSize="24sp"
         android:visibility="gone" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start" />
+        android:background="#ff7f00"
+        android:text="시작" />
 </LinearLayout>

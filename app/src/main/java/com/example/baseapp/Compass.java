@@ -61,8 +61,8 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
     }
 
     @Override
-    public void onNewAzimuth(float azimuth) {
-        azimuthView.setText("Azimuth: " + azimuth + " degrees");
+    public void onNewAzimuth(int azimuth) {
+        azimuthView.setText("보고있는방향: " + azimuth + " 도");
         if (isTargetSet) {
             if (Math.abs(azimuth - targetAzimuth) < RANGE_THRESHOLD_DEGREES) {
                 if (!isWithinRange) {

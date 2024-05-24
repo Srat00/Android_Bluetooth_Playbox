@@ -5,30 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <android.widget.Button
         android:id="@+id/startReactionTestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="187dp"
-        android:layout_marginBottom="229dp"
+        android:layout_width="97dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="38dp"
+        android:background="#ff7f00"
         android:onClick="startReactionTest"
-        android:text="Start Reaction Time Test"
+        android:text="Start!"
         app:layout_constraintBottom_toTopOf="@+id/reaction_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/reaction_button"
-        android:layout_width="299dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="67dp"
+
+        android:layout_width="347dp"
+        android:layout_height="116dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="244dp"
         android:onClick="measureReactionTime"
-        android:text="Click If Background Change!"
+        android:text="성인의 평균 반응속도는 200~250ms이다"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="314dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="135dp"
+        android:text="*일반적으로 나이가 들면 뇌의 운동정보 교환능력이
+        쇠퇴하면서 외부 자극에 반응하는 속도가 떨어진다고 합니다*"
+        app:layout_constraintBottom_toTopOf="@+id/reaction_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startReactionTestButton" />
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

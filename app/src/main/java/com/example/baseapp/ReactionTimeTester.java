@@ -20,7 +20,7 @@ public class ReactionTimeTester {
 
     public void startReactionTest() {
         changeButton.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray)); // 초기 색
-        changeButton.setText("Wait for green...");
+        changeButton.setText("초록색이 나오면 이 버튼을 터치하세요!");
         changeButton.setEnabled(false); // 시작 버튼 비활성화
 
         // 랜덤한 지연 후 초록색으로 변경
