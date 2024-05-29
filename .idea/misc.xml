@@ -3,17 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2155" />
+        <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/action_compass.xml" value="0.1" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_compass.xml" value="0.2" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_gyroscope.xml" value="0.12284701114488349" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_reaction_time.xml" value="0.264" />
+        <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_result.xml" value="0.1" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_rhythm.xml" value="0.11423505572441743" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_touch2.xml" value="0.11423505572441743" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_touch_count.xml" value="0.1" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/activity_vibrate.xml" value="0.11423505572441743" />
         <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/layout/shake_count_activity.xml" value="0.2" />
-        <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/menu/menu1.xml" value="0.1" />
+        <entry key="..\:/Users/gmlfl/AndroidStudioProjects/BaseApp/app/src/main/res/menu/menu1.xml" value="0.2" />
       </map>
     </option>
   </component>

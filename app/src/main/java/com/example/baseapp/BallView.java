@@ -7,40 +7,58 @@ import android.graphics.Paint;
 import android.view.View;
 
 public class BallView extends View {
-    private static final int RADIUS = 50;
-    protected Paint paint;
-    private float x = 100;
-    private float y = 100;
-    private float vx = 0;
-    private float vy = 0;
-    private float viewWidth;
-    private float viewHeight;
+    private Paint ballPaint;
+    private Paint targetPaint;
+    private float ballX, ballY;
+    private float targetX, targetY;
+    private float ballRadius = 50;
+    private float targetRadius = 75;
+    private int viewWidth, viewHeight;
+
     public BallView(Context context) {
         super(context);
-        paint = new Paint();
-        paint.setColor(Color.BLUE);
+        ballPaint = new Paint();
+        ballPaint.setColor(Color.BLUE);
+        targetPaint = new Paint();
+        targetPaint.setColor(Color.RED);
     }
 
-    public void updateBall(float ax, float ay) {
-        vx += ax;
-        vy += ay;
-        x += vx;
-        y += vy;
-        if (x <= RADIUS) {
-            x = RADIUS;
-            vx = 0; // 벽에 닿으면 속도를 0으로 설정
-        } else if (x >= viewWidth - RADIUS) {
-            x = viewWidth - RADIUS;
-            vx = 0;
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawCircle(ballY, ballX, ballRadius, ballPaint);
+        canvas.drawCircle(targetX, targetY, targetRadius, targetPaint);
+    }
+
+    public void updateBall(float deltaX, float deltaY) {
+        ballX += deltaX * 25;
+        ballY += deltaY * 25;
+
+        // Ensure the ball stays within the view boundaries
+        if (ballY - ballRadius < 0) {
+            ballY = ballRadius;
+        } else if (ballY + ballRadius > viewWidth) {
+            ballY = viewWidth - ballRadius;
         }
-        if (y <= RADIUS) {
-            y = RADIUS;
-            vy = 0;
-        } else if (y >= viewHeight - RADIUS) {
-            y = viewHeight - RADIUS;
-            vy = 0;
+
+        if (ballX - ballRadius < 0) {
+            ballX = ballRadius;
+        } else if (ballX + ballRadius > viewHeight) {
+            ballX = viewHeight - ballRadius;
         }
-        invalidate(); // 다시 그리기 위해 호출
+
+        invalidate();
+    }
+
+    public void setTargetPosition(float x, float y) {
+        targetX = x;
+        targetY = y;
+        invalidate();
+    }
+
+    public boolean isBallOnTarget() {
+        float distance = (float) Math.sqrt(Math.pow(ballY - targetX, 2) + Math.pow(ballX - targetY, 2));
+        return distance <= targetRadius;
     }
 
     @Override
@@ -48,11 +66,7 @@ public class BallView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         viewWidth = w;
         viewHeight = h;
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawCircle(x, y, RADIUS, paint);
+        ballX = w / 2;
+        ballY = h / 2;
     }
 }
