@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/action_touch_count"
-        android:title="Touch Count"/>
-    <item
-        android:id="@+id/action_shake"
-        android:title="Shake Count"/>
-    <item
-        android:id="@+id/action_compass"
-        android:title="Compass"/>
-    <item
-        android:id="@+id/action_of_time_respond"
-        android:title="Time_respond"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <item android:id="@+id/action_of_gyro"
-        android:title="Start Rolling" />
-    <item android:id="@+id/action_rhythm"
-        android:title="Rhythm"/>
-    <item android:id="@+id/action_vibrate"
-        android:title="Vibrate"/>
-    <item android:id="@+id/action_touch2"
-        android:title="Touch2"/>
-</menu>
+    <Button
+        android:id="@+id/button_touch_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="터치 횟수" />
+
+    <Button
+        android:id="@+id/button_shake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="흔들기 횟수" />
+
+    <Button
+        android:id="@+id/button_compass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="나침반" />
+
+    <Button
+        android:id="@+id/button_of_time_respond"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="시간 응답" />
+
+    <Button
+        android:id="@+id/button_of_gyro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="자이로 시작" />
+
+    <Button
+        android:id="@+id/button_rhythm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="리듬" />
+
+    <Button
+        android:id="@+id/button_vibrate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="진동" />
+
+    <Button
+        android:id="@+id/button_touch2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="터치2" />
+</LinearLayout>

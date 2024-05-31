@@ -3,14 +3,22 @@ package com.example.baseapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class Compass extends AppCompatActivity implements CompassSensor.CompassListener {
     private CompassSensor compassSensor;
-    private TextView azimuthView;
+    private ImageView compassBackground;
+    private ImageView compassNeedle;
+    private ImageView miniCompass;
+    private ImageView compassNeedle2; //시작 전 돌아가는 니들을 위한 애니메이션
+    private TextView currentAzimuthText;
     private TextView targetAzimuthView;
     private TextView timerView;
     private Button startButton;
@@ -22,12 +30,13 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
     private Handler handler = new Handler();
     private Handler rangeHandler = new Handler();
     private Runnable rangeCheckRunnable;
+    private int currentAzimuth = 0;
 
     private static final int RANGE_DURATION_MS = 1000; // 1 second
     private static final int RANGE_THRESHOLD_DEGREES = 5; // 5 degrees
 
-    long enemy_score=0;
-    long my_score=0;
+    long enemy_score = 0;
+    long my_score = 0;
 
     public long getScore() {
         return my_score;
@@ -36,14 +45,17 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
     public void setScore(long enemy_score) {
         this.enemy_score = enemy_score;
     }
-    public void startAlarm(){
-    };
+
+    public void startAlarm() {}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
-
-        azimuthView = findViewById(R.id.azimuth_text);
+        miniCompass = findViewById(R.id.compass_needle);
+        compassBackground = findViewById(R.id.compass_background);
+        compassNeedle = findViewById(R.id.compass_needle);
+        currentAzimuthText = findViewById(R.id.current_azimuth_text);
         targetAzimuthView = findViewById(R.id.target_azimuth_text);
         timerView = findViewById(R.id.timer_text);
         startButton = findViewById(R.id.start_button);
@@ -56,6 +68,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
                 startGame();
             }
         });
+        startNeedleAnimation();
     }
 
     @Override
@@ -74,18 +87,31 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
 
     @Override
     public void onNewAzimuth(int azimuth) {
-        azimuthView.setText("보고있는방향: " + azimuth + " 도");
-        if (isTargetSet) {
-            if (Math.abs(azimuth - targetAzimuth) < RANGE_THRESHOLD_DEGREES) {
-                if (!isWithinRange) {
-                    isWithinRange = true;
-                    startRangeCheck();
-                }
-            } else {
-                isWithinRange = false;
-                rangeHandler.removeCallbacks(rangeCheckRunnable);
-            }
-        }
+        rotateCompass(azimuth);
+        currentAzimuthText.setText(azimuth + "°");
+    }
+
+    private void rotateCompass(int azimuth) {
+        RotateAnimation rotateAnimation = new RotateAnimation(
+                currentAzimuth, -azimuth,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(500);
+        rotateAnimation.setFillAfter(true);
+        compassBackground.startAnimation(rotateAnimation);
+        currentAzimuth = -azimuth;
+    }
+
+    private void startNeedleAnimation() {
+        compassNeedle2 = findViewById(R.id.compass_needle2); // 시작 전 돌아가는 나침반.
+        RotateAnimation rotateAnimation = new RotateAnimation(
+                0, 360,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(2000); // 2 seconds for one full rotation
+        rotateAnimation.setRepeatCount(Animation.INFINITE);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        compassNeedle2.startAnimation(rotateAnimation);
     }
 
     private void startGame() {
@@ -93,9 +119,19 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
         setNewTargetAzimuth();
         startTime = System.currentTimeMillis();
         updateTimer();
-        startButton.setVisibility(View.GONE); // Hide the start button
+
+        compassBackground.setVisibility(View.VISIBLE);
+        compassNeedle.setVisibility(View.VISIBLE);
+        currentAzimuthText.setVisibility(View.VISIBLE);
         targetAzimuthView.setVisibility(View.VISIBLE);
         timerView.setVisibility(View.VISIBLE);
+        startButton.setVisibility(View.GONE); // Hide the start button
+        compassNeedle2.clearAnimation(); // Stop the initial rotation animation
+        compassNeedle2.setVisibility(View.GONE);
+        miniCompass.setVisibility(View.GONE);
+        findViewById(R.id.textView2).setVisibility(View.GONE);
+        findViewById(R.id.explain_text).setVisibility(View.GONE);
+        findViewById(R.id.winner_text).setVisibility(View.GONE);
     }
 
     private void setNewTargetAzimuth() {
@@ -118,9 +154,29 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
                     long elapsedTime = System.currentTimeMillis() - startTime;
                     timerView.setText("Time: " + elapsedTime / 1000.0 + " seconds");
                     isTargetSet = false;
-                    startButton.setVisibility(View.VISIBLE); // Show the start button again
-                    targetAzimuthView.setVisibility(View.GONE);
-                    timerView.setVisibility(View.GONE);
+
+                    compassBackground.setVisibility(View.GONE); // 나침반 배경 사라짐
+                    compassNeedle.setVisibility(View.GONE); // 나침반 바늘 사라짐
+                    compassNeedle2.setVisibility(View.VISIBLE); // 시작화면 나침반 바늘 뜨게함 
+                    miniCompass.setVisibility(View.VISIBLE); // 미니 나침반이 뜨게함 [시작
+                    findViewById(R.id.explain_text).setVisibility(View.VISIBLE); // 설명 텍스트가 뜨게함
+                    currentAzimuthText.setVisibility(View.GONE); // 현재 각도를 없앰(게임중
+                    targetAzimuthView.setVisibility(View.GONE); // 타겟 각도를 없앰(게임중
+                    timerView.setVisibility(View.VISIBLE); // 걸린 시간을 보여줌 (게임끝)
+                    startButton.setVisibility(View.VISIBLE);  // 시작버튼을 보이게함 [ 게임 시작중
+                    findViewById(R.id.textView2).setVisibility(View.VISIBLE); //제목을 띄움
+
+                    startNeedleAnimation();
+
+                    TextView winnerText = findViewById(R.id.winner_text);
+                    if (my_score < enemy_score) {
+                        winnerText.setText("Winner: You");
+                    } else if (my_score > enemy_score) {
+                        winnerText.setText("Winner: Enemy");
+                    } else {
+                        winnerText.setText("It's a tie!");
+                    }
+                    winnerText.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -133,7 +189,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
             if (isTargetSet) {
                 long elapsedTime = System.currentTimeMillis() - startTime;
                 timerView.setText("걸린시간: " + elapsedTime / 1000.0 + " 초");
-                my_score= (long) (elapsedTime/1000.0);
+                my_score = (long) (elapsedTime / 1000.0);
                 handler.postDelayed(this, 100);
             }
         }

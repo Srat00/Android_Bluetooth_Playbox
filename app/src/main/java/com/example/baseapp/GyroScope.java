@@ -92,7 +92,7 @@ public class GyroScope extends AppCompatActivity {
     }
 
     private void displayTotalTime() {
-        Intent intent = new Intent(GyroScope.this, ResultActivity.class);
+        Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("TOTAL_TIME", totalTime);
         startActivity(intent);
     }
