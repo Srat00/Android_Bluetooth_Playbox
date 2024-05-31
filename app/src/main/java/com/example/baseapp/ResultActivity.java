@@ -9,11 +9,10 @@ public class ResultActivity extends AppCompatActivity { //자이로볼의 결과
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
-
         long totalTime = getIntent().getLongExtra("TOTAL_TIME", 0);
 
         TextView resultTextView = findViewById(R.id.resultTextView);
         resultTextView.setText("Total Time: " + totalTime + " ms");
+        setContentView(R.layout.activity_result);
     }
 }
