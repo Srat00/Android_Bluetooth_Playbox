@@ -52,7 +52,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
-        miniCompass = findViewById(R.id.compass_needle);
+        miniCompass = findViewById(R.id.mini_compass);
         compassBackground = findViewById(R.id.compass_background);
         compassNeedle = findViewById(R.id.compass_needle);
         currentAzimuthText = findViewById(R.id.current_azimuth_text);
@@ -87,8 +87,12 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
 
     @Override
     public void onNewAzimuth(int azimuth) {
-        rotateCompass(azimuth);
+        if (isTargetSet){
+            rotateCompass(azimuth);
+        }
+
         currentAzimuthText.setText(azimuth + "°");
+        checkIfWithinRange(azimuth);
     }
 
     private void rotateCompass(int azimuth) {
@@ -102,6 +106,20 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
         currentAzimuth = -azimuth;
     }
 
+    private void checkIfWithinRange(int azimuth) {
+        if (isTargetSet) {
+            int difference = Math.abs(targetAzimuth - azimuth);
+            if (difference <= RANGE_THRESHOLD_DEGREES || difference >= (360 - RANGE_THRESHOLD_DEGREES)) {
+                if (!isWithinRange) {
+                    isWithinRange = true;
+                    rangeHandler.postDelayed(rangeCheckRunnable, RANGE_DURATION_MS);
+                }
+            } else {
+                isWithinRange = false;
+                rangeHandler.removeCallbacks(rangeCheckRunnable);
+            }
+        }
+    }
     private void startNeedleAnimation() {
         compassNeedle2 = findViewById(R.id.compass_needle2); // 시작 전 돌아가는 나침반.
         RotateAnimation rotateAnimation = new RotateAnimation(
@@ -119,6 +137,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
         setNewTargetAzimuth();
         startTime = System.currentTimeMillis();
         updateTimer();
+        startRangeCheck(); // 범위 확인 시작
 
         compassBackground.setVisibility(View.VISIBLE);
         compassNeedle.setVisibility(View.VISIBLE);
@@ -155,6 +174,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
                     timerView.setText("Time: " + elapsedTime / 1000.0 + " seconds");
                     isTargetSet = false;
 
+                    compassBackground.clearAnimation();
                     compassBackground.setVisibility(View.GONE); // 나침반 배경 사라짐
                     compassNeedle.setVisibility(View.GONE); // 나침반 바늘 사라짐
                     compassNeedle2.setVisibility(View.VISIBLE); // 시작화면 나침반 바늘 뜨게함 
