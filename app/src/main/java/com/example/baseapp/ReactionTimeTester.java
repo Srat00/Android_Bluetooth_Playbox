@@ -4,11 +4,15 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class ReactionTimeTester {
 
     private Context context;
     private Button changeButton;
+    private TextView text_of_result;
     private long startTime;
     private boolean isReadyToMeasure = false;
     long my_score=0,enemy_score=0;
@@ -23,10 +27,12 @@ public class ReactionTimeTester {
     public void startAlarm(){
 
     };
-    public ReactionTimeTester(Context context, Button changeButton) {
+    public ReactionTimeTester(Context context, Button changeButton,TextView win) {
+
         this.context = context;
         this.changeButton = changeButton;
         this.changeButton.setOnClickListener(v -> startReactionTest());
+
     }
 
     public void startReactionTest() {
@@ -51,6 +57,7 @@ public class ReactionTimeTester {
             long reactionTime = System.currentTimeMillis() - startTime;
             changeButton.setText("Reaction Time: " + reactionTime + " ms");
             my_score=reactionTime;
+
             changeButton.setEnabled(false);
             isReadyToMeasure = false;
         }

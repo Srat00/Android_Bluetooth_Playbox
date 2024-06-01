@@ -3,35 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f0f8ff">
 
     <android.widget.Button
         android:id="@+id/startReactionTestButton"
-        android:layout_width="97dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="38dp"
+        android:layout_width="131dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:background="#ff7f00"
         android:onClick="startReactionTest"
         android:text="Start!"
-        app:layout_constraintBottom_toTopOf="@+id/reaction_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.014" />
 
     <Button
         android:id="@+id/reaction_button"
 
-        android:layout_width="347dp"
-        android:layout_height="116dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="244dp"
+        android:layout_width="210dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="136dp"
         android:onClick="measureReactionTime"
         android:text="성인의 평균 반응속도는 200~250ms이다"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toEndOf="@+id/startReactionTestButton" />
 
     <TextView
         android:id="@+id/textView"
@@ -43,9 +43,46 @@
         쇠퇴하면서 외부 자극에 반응하는 속도가 떨어진다고 합니다*"
         app:layout_constraintBottom_toTopOf="@+id/reaction_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.324" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="229dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="93dp"
+        android:text="반응속도 대결!"
+        android:textSize="37sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="345dp"
+        android:layout_height="282dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/time_respond_picture" />
+
+    <TextView
+        android:id="@+id/win_or_defeat"
+        android:layout_width="386dp"
+        android:layout_height="119dp"
+        android:text="파랑색 버튼이 초록색이 되면 최대한 빨리 터치하시면 됩니다!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startReactionTestButton"
         app:layout_constraintVertical_bias="1.0" />
 
 
