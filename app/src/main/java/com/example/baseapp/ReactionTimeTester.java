@@ -28,7 +28,7 @@ public class ReactionTimeTester {
 
     };
     public ReactionTimeTester(Context context, Button changeButton,TextView win) {
-
+        this.text_of_result=win;
         this.context = context;
         this.changeButton = changeButton;
         this.changeButton.setOnClickListener(v -> startReactionTest());
@@ -60,6 +60,9 @@ public class ReactionTimeTester {
 
             changeButton.setEnabled(false);
             isReadyToMeasure = false;
+
+            if(my_score<enemy_score){text_of_result.setText("당신의 승리입니다!");}
+            else{text_of_result.setText("당신의 패배입니다!");}
         }
     }
 }

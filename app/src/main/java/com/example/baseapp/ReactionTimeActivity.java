@@ -18,8 +18,9 @@ public class ReactionTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_time);
 
         reactionButton = findViewById(R.id.reaction_button); // 레이아웃에 정의된 버튼 ID
-        reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat);
         win_or_defeat=findViewById(R.id.win_or_defeat);
+        reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat);
+
         // 사용자가 버튼을 누르면 반응 시간 측정
         reactionButton.setOnClickListener(v -> reactionTimeTester.measureReactionTime());
     }

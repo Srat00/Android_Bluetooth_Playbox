@@ -1,6 +1,7 @@
 package com.example.baseapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +22,7 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
     private static final int DETECTION_DURATION_MS = 10000; // 10 seconds
 
     private TextView shakeCountTextView;
-    private TextView timerTextView;
+    private ImageView animationImageView;
     private int shakeCount = 0;
     private int finalShakeCount = 0;
 
@@ -30,7 +32,8 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
     private boolean isTimerRunning = false;
     private Handler timerHandler = new Handler();
     private Button startButton;
-
+    private TextView time_alarm;
+    private TextView title;
     private long startTime;
 
     int my_score=0,enemy_score=0;
@@ -42,16 +45,19 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
     public void setScore(int enemy_score) {
         this.enemy_score = enemy_score;
     }
-    public void startAlarm(){
 
-    };
+    public void startAlarm(){
+        // Your alarm implementation
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shake_count_activity);
-
+        this.time_alarm=findViewById(R.id.time_alarm);
+        this.title = findViewById(R.id.title);
         shakeCountTextView = findViewById(R.id.shakeCountTextView);
-
+        animationImageView = findViewById(R.id.animationImageView);
         startButton = findViewById(R.id.button1);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -65,6 +71,24 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
         });
 
         updateShakeCountUI();
+        startPreGameAnimation();
+    }
+
+    private void startPreGameAnimation() {
+        animationImageView.setImageResource(R.drawable.phone1);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                animationImageView.setImageResource(R.drawable.phone2);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startPreGameAnimation();
+                    }
+                }, 500);
+            }
+        }, 500);
     }
 
     @Override
@@ -87,7 +111,8 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             isTimerRunning = false;
             finalShakeCount = shakeCount;
             Toast.makeText(ShakeDetector.this, "Shake detection stopped", Toast.LENGTH_SHORT).show();
-            startButton.setText("누르면 시작합니다!");
+            startButton.setText("시작!");
+            startPreGameAnimation(); // Restart pre-game animation
         }
     };
 
@@ -98,10 +123,15 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
                 long elapsedTime = System.currentTimeMillis() - startTime;
                 long remainingTime = DETECTION_DURATION_MS - elapsedTime;
                 if (remainingTime > 0) {
-                    startButton.setText("Time remaining: " + remainingTime / 1000 + " seconds");
+                    title.setText("흔들어!!");
+                    title.setTextColor(Color.parseColor("#ff0000"));
+                    time_alarm.setVisibility(View.VISIBLE);
+                    time_alarm.setText("남은 시간 : " + remainingTime / 1000 + " 초");
                     timerHandler.postDelayed(this, 100);
                 } else {
-                    startButton.setText("Time remaining: 0 seconds");
+                    time_alarm.setVisibility(View.GONE);
+                    title.setText("쉐킷쉐킷");
+                    title.setTextColor(Color.parseColor("#ff0000"));
                 }
             }
         }
@@ -143,7 +173,13 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             shakeCount++;
             updateShakeCountUI();
 
-            // 흔들림을 감지할 때마다 진동을 울림
+            // 흔들림을 감지할 때마다 이미지 변경 및 진동
+            if (shakeCount % 2 == 0) {
+                animationImageView.setImageResource(R.drawable.phone3);
+            } else {
+                animationImageView.setImageResource(R.drawable.phone4);
+            }
+
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null) {
                 vibrator.vibrate(50); // 0.05초간 진동
@@ -164,12 +200,16 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
         registerSensor();
         isTimerRunning = true;
         Toast.makeText(ShakeDetector.this, "Shake detection started", Toast.LENGTH_SHORT).show();
-
     }
 
     private void updateShakeCountUI() {
-        my_score=shakeCount;
-        shakeCountTextView.setText("Shake Count: " + shakeCount);
+        my_score = shakeCount;
+        if(isTimerRunning) {
+            shakeCountTextView.setText("흔든 횟수: " + shakeCount);
+        }
+        else{
+            shakeCountTextView.setText("시간내에 상대보다 많이 폰을 흔드세요!");
 
+        }
     }
 }
