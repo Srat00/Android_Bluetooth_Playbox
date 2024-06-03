@@ -4,12 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#f0f8ff">
+
+
+<TextView
+        android:id="@+id/result_of_race"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="win? or defeat?"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/resultTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="Total Time: 0 ms"/>
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/enemyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/return_to_start"
+        android:layout_width="132dp"
+        android:layout_height="128dp"
+        android:text="돌아가기" />
 </LinearLayout>

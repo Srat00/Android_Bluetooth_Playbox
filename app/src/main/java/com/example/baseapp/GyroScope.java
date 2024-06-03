@@ -24,6 +24,18 @@ public class GyroScope extends AppCompatActivity {
     private int targetCount = 0;
     private long totalTime = 0;
     private boolean isOnTarget = false;
+    private long myTime = 0;
+    private long enemyTime = 0;
+    private static final long GAME_DURATION = 30000; // 30 seconds
+    private boolean gameActive = true;
+
+    public long getMyTime() {
+        return myTime;
+    }
+
+    public void setEnemyTime(long enemyTime) {
+        this.enemyTime = enemyTime;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +53,8 @@ public class GyroScope extends AppCompatActivity {
         gyroscopeSensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
+                if (!gameActive) return;
+
                 float angularSpeedX = event.values[0];
                 float angularSpeedY = event.values[1];
                 ballView.updateBall(angularSpeedX, angularSpeedY);
@@ -61,6 +75,9 @@ public class GyroScope extends AppCompatActivity {
                 generateRandomTarget();
             }
         });
+
+        // Start game timer
+        handler.postDelayed(gameTimerRunnable, GAME_DURATION);
     }
 
     private void checkBallPosition() {
@@ -80,10 +97,8 @@ public class GyroScope extends AppCompatActivity {
             if (isOnTarget) {
                 totalTime += SystemClock.elapsedRealtime() - startTime;
                 targetCount++;
-                if (targetCount < 5) {
+                if (targetCount < 5 && gameActive) {
                     generateRandomTarget();
-                } else {
-                    displayTotalTime();
                 }
                 isOnTarget = false;
             }
@@ -99,17 +114,34 @@ public class GyroScope extends AppCompatActivity {
     }
 
     private void displayTotalTime() {
-        Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra("TOTAL_TIME", totalTime);
-        startActivity(intent);
+        if (!gameActive) return;
+
+        gameActive = false;
+        myTime = totalTime;
+        Intent intent1 = new Intent(this, ResultActivity.class);
+        intent1.putExtra("TOTAL_TIME", myTime);
+        intent1.putExtra("ENEMY_TOTAL_TIME", enemyTime);
+        startActivity(intent1);
 
         // Finish the GyroScope activity and return to StartActivity
-        finish();
+       // finish();
     }
+
+    private Runnable gameTimerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (gameActive) {
+                displayTotalTime();
+            }
+        }
+    };
 
     @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(gyroscopeSensorListener);
+        gameActive = false;
+        handler.removeCallbacks(gameTimerRunnable);
+        handler.removeCallbacks(targetRunnable);
     }
 }

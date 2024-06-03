@@ -11,6 +11,8 @@ public class ReactionTimeActivity extends AppCompatActivity {
 
     private ReactionTimeTester reactionTimeTester;
     private Button reactionButton;
+    private Button startButton;
+
     private TextView win_or_defeat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,8 @@ public class ReactionTimeActivity extends AppCompatActivity {
 
         reactionButton = findViewById(R.id.reaction_button); // 레이아웃에 정의된 버튼 ID
         win_or_defeat=findViewById(R.id.win_or_defeat);
-        reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat);
+        startButton=findViewById(R.id.startReactionTestButton);
+        reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat,startButton);
 
         // 사용자가 버튼을 누르면 반응 시간 측정
         reactionButton.setOnClickListener(v -> reactionTimeTester.measureReactionTime());
