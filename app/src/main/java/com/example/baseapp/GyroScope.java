@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.Display;
+import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GyroScope extends AppCompatActivity {
@@ -51,7 +52,15 @@ public class GyroScope extends AppCompatActivity {
             }
         };
         sensorManager.registerListener(gyroscopeSensorListener, gyroscopeSensor, SensorManager.SENSOR_DELAY_GAME);
-        generateRandomTarget();
+
+        // Ensure the target is generated after the layout is complete
+        ballView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ballView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                generateRandomTarget();
+            }
+        });
     }
 
     private void checkBallPosition() {
@@ -74,8 +83,6 @@ public class GyroScope extends AppCompatActivity {
                 if (targetCount < 5) {
                     generateRandomTarget();
                 } else {
-                    // Show
-                    // Show total time taken
                     displayTotalTime();
                 }
                 isOnTarget = false;
@@ -95,6 +102,9 @@ public class GyroScope extends AppCompatActivity {
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("TOTAL_TIME", totalTime);
         startActivity(intent);
+
+        // Finish the GyroScope activity and return to StartActivity
+        finish();
     }
 
     @Override

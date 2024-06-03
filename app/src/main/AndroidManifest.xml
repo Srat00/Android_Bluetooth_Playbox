@@ -31,6 +31,7 @@
         <activity android:name=".Compass"/>
         <activity android:name=".ReactionTimeActivity" />
         <activity android:name=".GyroScope" />
+        <activity android:name=".GyroStart" />
         <activity android:name=".RhythmActivity"/>
         <activity android:name=".VibrateActivity"/>
         <activity android:name=".TouchActivity_dongwon"/>

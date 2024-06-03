@@ -23,7 +23,7 @@ public class MenuActivity extends AppCompatActivity {
         gameList.add(new Game("흔들기 횟수", "최대한 많이 핸드폰을 흔들어라!", R.drawable.ic_shake, ShakeDetector.class));
         gameList.add(new Game("나침반", "최대한 빨리 각도를 맞추어라!", R.drawable.ic_compass, Compass.class));
         gameList.add(new Game("반응 속도", "최대한 빨리 터치하세요~", R.drawable.ic_time_respond, ReactionTimeActivity.class));
-        gameList.add(new Game("공 굴리기", "핸드폰을 기울여라!", R.drawable.ic_gyro, GyroScope.class));
+        gameList.add(new Game("공 굴리기", "핸드폰을 기울여라!", R.drawable.ic_gyro, GyroStart.class));
         gameList.add(new Game("리듬", "리듬미컬한 테스트~", R.drawable.ic_rhythm, RhythmActivity.class));
         gameList.add(new Game("진동", "진동 테스트", R.drawable.ic_vibrate, VibrateActivity.class));
         gameList.add(new Game("터치2", "다른 터치 게임", R.drawable.ic_touch_count, TouchActivity_dongwon.class));
