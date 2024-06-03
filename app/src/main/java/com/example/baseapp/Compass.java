@@ -189,6 +189,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
                     startNeedleAnimation();
 
                     TextView winnerText = findViewById(R.id.winner_text);
+                    //enemy scroe 설정하기. 추가구현 필요.
                     if (my_score < enemy_score) {
                         winnerText.setText("Winner: You");
                     } else if (my_score > enemy_score) {

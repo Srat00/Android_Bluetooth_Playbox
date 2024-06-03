@@ -88,6 +88,7 @@ public class ReactionTimeTester {
     }
 
     private void showResult() {
+        //적의 스코어를 얻어오는 것.
         startBtn.setEnabled(true);
         changeButton.setText("Reaction Time: " + my_score + " ms");
         if (my_score < enemy_score) {

@@ -119,6 +119,7 @@ public class GyroScope extends AppCompatActivity {
         gameActive = false;
         myTime = totalTime;
         Intent intent1 = new Intent(this, ResultActivity.class);
+        //적의 스코어 설정.
         intent1.putExtra("TOTAL_TIME", myTime);
         intent1.putExtra("ENEMY_TOTAL_TIME", enemyTime);
         startActivity(intent1);
