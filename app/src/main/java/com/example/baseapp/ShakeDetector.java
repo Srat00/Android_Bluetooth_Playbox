@@ -76,6 +76,7 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
 
     private void startPreGameAnimation() {
         animationImageView.setImageResource(R.drawable.phone1);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -113,6 +114,17 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             Toast.makeText(ShakeDetector.this, "Shake detection stopped", Toast.LENGTH_SHORT).show();
             startButton.setText("시작!");
             startPreGameAnimation(); // Restart pre-game animation
+            time_alarm.setVisibility(View.GONE);
+            startButton.setVisibility(View.VISIBLE);
+            title.setText("쉐킷쉐킷");
+            title.setTextColor(Color.parseColor("#000000"));
+            if(my_score>enemy_score) {
+                shakeCountTextView.setText("당신의 점수는 : "+my_score+" , 승리!!");
+            }else if(my_score==enemy_score){
+                shakeCountTextView.setText("당신의 점수는 : "+my_score+" , 무승부!!");
+            }else{
+                shakeCountTextView.setText("당신의 점수는 : "+my_score+" , 패배..");
+            }
         }
     };
 
@@ -129,9 +141,7 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
                     time_alarm.setText("남은 시간 : " + remainingTime / 1000 + " 초");
                     timerHandler.postDelayed(this, 100);
                 } else {
-                    time_alarm.setVisibility(View.GONE);
-                    title.setText("쉐킷쉐킷");
-                    title.setTextColor(Color.parseColor("#ff0000"));
+
                 }
             }
         }
@@ -192,6 +202,7 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
         if (isTimerRunning) {
             return; // 이미 타이머가 실행 중이면 다시 시작하지 않음
         }
+        startButton.setVisibility(View.GONE);
         shakeCount = 0;
         updateShakeCountUI();
         startTime = System.currentTimeMillis();
@@ -204,12 +215,6 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
 
     private void updateShakeCountUI() {
         my_score = shakeCount;
-        if(isTimerRunning) {
-            shakeCountTextView.setText("흔든 횟수: " + shakeCount);
-        }
-        else{
-            shakeCountTextView.setText("시간내에 상대보다 많이 폰을 흔드세요!");
-
-        }
+        shakeCountTextView.setText("흔든 횟수: " + shakeCount);
     }
 }
