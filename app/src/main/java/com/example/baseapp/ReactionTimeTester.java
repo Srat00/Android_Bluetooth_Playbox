@@ -30,6 +30,9 @@ public class ReactionTimeTester {
                 byte[] readBuf = (byte[]) msg.obj;
                 String readMessage = new String(readBuf, 0, msg.arg1);
                 setEnemy_score(Long.parseLong(readMessage));
+
+                if(my_score<enemy_score){text_of_result.setText("당신의 승리입니다!");}
+                else{text_of_result.setText("당신의 패배입니다!");}
             }
             return true;
         });
@@ -80,9 +83,7 @@ public class ReactionTimeTester {
             getScore();
             changeButton.setEnabled(false);
             isReadyToMeasure = false;
-
-            if(my_score<enemy_score){text_of_result.setText("당신의 승리입니다!");}
-            else{text_of_result.setText("당신의 패배입니다!");}
+            text_of_result.setText("어쨌든 끝나긴 했습니다");
         }
     }
 }
