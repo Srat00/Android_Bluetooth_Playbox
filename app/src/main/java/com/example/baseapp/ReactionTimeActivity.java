@@ -1,6 +1,8 @@
 package com.example.baseapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,12 +19,27 @@ public class ReactionTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_time);
 
+        BluetoothManager bluetoothManager = BluetoothManager.getInstance();
+
         reactionButton = findViewById(R.id.reaction_button); // 레이아웃에 정의된 버튼 ID
         win_or_defeat=findViewById(R.id.win_or_defeat);
-        reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat);
+        reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat, true);
 
         // 사용자가 버튼을 누르면 반응 시간 측정
         reactionButton.setOnClickListener(v -> reactionTimeTester.measureReactionTime());
+
+        Handler handler = new Handler(msg -> {
+            if (msg.what == MainActivity.BT_MESSAGE_READ) {
+                byte[] readBuf = (byte[]) msg.obj;
+                String readMessage = new String(readBuf, 0, msg.arg1);
+                if (readMessage.equals("Reaction"))
+                {
+                    reactionTimeTester = new ReactionTimeTester(this, reactionButton,win_or_defeat, false);
+                    reactionTimeTester.measureReactionTime();
+                }
+            }
+            return true;
+        });
     }
 
     public void startReactionTest(View view) {
