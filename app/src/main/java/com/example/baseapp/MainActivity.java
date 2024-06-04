@@ -3,6 +3,7 @@ package com.example.baseapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.Menu;
@@ -30,19 +31,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.Manifest;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     Button mBtnBluetoothOn;
     Button mBtnBluetoothOff;
     Button mBtnConnect;
@@ -61,15 +67,61 @@ public class MainActivity extends AppCompatActivity {
     final static int BT_CONNECTING_STATUS = 3;
     final static UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
+    private final String[] permissions = {
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH_CONNECT
+    };
+
+    private final ActivityResultLauncher<String[]> permissionsRequestActivityLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
+                    permissions -> {
+                        boolean granted = true;
+                        for (Map.Entry<String, Boolean> entry : permissions.entrySet()) {
+                            if (!entry.getValue()) {
+                                granted = false;
+                                break;
+                            }
+                        }
+                        if (granted) {
+                            // 권한 승인 처리
+                        } else {
+                            // 권한 거부 처리
+                        }
+                    });
+
+    private boolean hasPermissions(List<String> permissions) {
+        for (String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (!hasPermissions(Arrays.asList(permissions))) {
+                permissionsRequestActivityLauncher.launch(permissions);
+            } else {
+                // 이미 권한을 승인받음
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        requestPermissions();
+
         Button menuButton = findViewById(R.id.button_menu);
         mBtnBluetoothOn = (Button) findViewById(R.id.btnBluetoothOn);
         mBtnBluetoothOff = (Button) findViewById(R.id.btnBluetoothOff);
         mBtnConnect = (Button) findViewById(R.id.btnBluetoothConnect);
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,15 +153,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void bluetoothOn() {
-        if (mBluetoothAdapter == null) {
+        if (mBluetoothAdapter == null)
+        {
             Toast.makeText(getApplicationContext(), "블루투스를 지원하지 않는 기기입니다.", Toast.LENGTH_LONG).show();
-        } else {
-            if (mBluetoothAdapter.isEnabled()) {
+        }
+        else
+        {
+            if (mBluetoothAdapter.isEnabled())
+            {
                 Toast.makeText(getApplicationContext(), "블루투스가 이미 활성화 되어 있습니다.", Toast.LENGTH_LONG).show();
-            } else {
+            }
+            else
+            {
                 Toast.makeText(getApplicationContext(), "블루투스가 활성화 되어 있지 않습니다.", Toast.LENGTH_LONG).show();
                 Intent intentBluetoothEnable = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED)
+                {
                     Toast.makeText(getApplicationContext(), "블루투스 권한이 적용되지 않았습니다.", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -209,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), "블루투스 연결 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
         }
+
     }
 
 
@@ -236,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
         }
-        public void run()
+        public void run() //GET
         {
             byte[] buffer = new byte[1024];
             int bytes;
@@ -260,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        public void write(String str)
+        public void write(String str) //SET
         {
             byte[] bytes = str.getBytes();
             try
