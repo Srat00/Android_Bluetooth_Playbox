@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.view.Display;
 import android.view.ViewTreeObserver;
@@ -24,7 +25,7 @@ public class GyroScope extends AppCompatActivity {
     private int targetCount = 0;
     private long totalTime = 0;
     private boolean isOnTarget = false;
-
+    BluetoothManager bluetoothManager = BluetoothManager.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Display display = getWindowManager().getDefaultDisplay();
@@ -80,9 +81,14 @@ public class GyroScope extends AppCompatActivity {
             if (isOnTarget) {
                 totalTime += SystemClock.elapsedRealtime() - startTime;
                 targetCount++;
-                if (targetCount < 5) {
+                if (targetCount < 5)
+                {
                     generateRandomTarget();
-                } else {
+                }
+                else
+                {
+                    //블루투스 송신
+                    bluetoothManager.sendBluetoothMessage(String.valueOf(totalTime));
                     displayTotalTime();
                 }
                 isOnTarget = false;
@@ -102,6 +108,7 @@ public class GyroScope extends AppCompatActivity {
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("TOTAL_TIME", totalTime);
         startActivity(intent);
+
 
         // Finish the GyroScope activity and return to StartActivity
         finish();

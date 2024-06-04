@@ -10,6 +10,13 @@
         android:id="@+id/resultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="Total Time: 0 ms"/>
+        android:text="Total Time: 0 ms"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/resultTextView_con"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Time: 0 ms"
+        android:textSize="24sp" />
 </LinearLayout>
