@@ -7,53 +7,53 @@
     android:background="#f0f8ff"
     >
 
+
     <android.widget.Button
         android:id="@+id/button_menu"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
+        android:layout_width="217dp"
+        android:layout_height="74dp"
         android:layout_centerInParent="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginStart="96dp"
         android:background="#ff7f00"
         android:text="게임 시작"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnBluetoothConnect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84" />
+        app:layout_constraintVertical_bias="0.753" />
 
     <Button
         android:id="@+id/btnBluetoothOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
+        android:layout_width="122dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="664dp"
         android:text="블루투스 ON"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/btnBluetoothOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
         android:text="블루투스 OFF"
-        app:layout_constraintStart_toEndOf="@+id/btnBluetoothOn"
-        app:layout_constraintTop_toTopOf="@+id/btnBluetoothOn" />
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="664dp" />
 
-    <android.widget.Button
-        android:id="@+id/btnBluetoothConnect"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="33dp"
+    <Button
+        android:id="@+id/btn_connect"
+        android:layout_width="136dp"
+        android:layout_height="61dp"
+        android:layout_centerHorizontal="true"
+        android:text="연결"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="587dp" />
 
-        android:background="#4169e1"
-        android:text="블루투스 연결하기."
-        app:layout_constraintBaseline_toBaselineOf="@+id/button_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_menu"
-        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/txt_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_connect"
+        android:text="" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

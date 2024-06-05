@@ -114,7 +114,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestPermissions();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions();
+        }
 
         Button menuButton = findViewById(R.id.button_menu);
         mBtnBluetoothOn = (Button) findViewById(R.id.btnBluetoothOn);
@@ -142,12 +144,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 bluetoothOff();
-            }
-        });
-        mBtnConnect.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listPairedDevices();
             }
         });
     }
@@ -188,88 +184,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             Toast.makeText(getApplicationContext(), "블루투스가 이미 비활성화 되어 있습니다.", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case BT_REQUEST_ENABLE:
-                if (resultCode == RESULT_OK) {
-                    // 블루투스 활성화를 확인을 클릭하였다면
-                    Toast.makeText(getApplicationContext(), "블루투스 활성화", Toast.LENGTH_LONG).show();
-                } else if (resultCode == RESULT_CANCELED) {
-                    // 블루투스 활성화를 취소를 클릭하였다면
-                    Toast.makeText(getApplicationContext(), "취소", Toast.LENGTH_LONG).show();
-                }
-                break;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    void listPairedDevices() {
-        if (mBluetoothAdapter.isEnabled()) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getApplicationContext(), "블루투스 권한이 적용되지 않았습니다.", Toast.LENGTH_LONG).show();
-                return;
-            }
-            mPairedDevices = mBluetoothAdapter.getBondedDevices();
-
-            if (mPairedDevices.size() > 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("장치 선택");
-
-                mListPairedDevices = new ArrayList<String>();
-                for (BluetoothDevice device : mPairedDevices) {
-                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(getApplicationContext(), "블루투스 권한이 적용되지 않았습니다.", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    mListPairedDevices.add(device.getName());
-                }
-                final CharSequence[] items = mListPairedDevices.toArray(new CharSequence[mListPairedDevices.size()]);
-                mListPairedDevices.toArray(new CharSequence[mListPairedDevices.size()]);
-
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        connectSelectedDevice(items[item].toString());
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-            } else {
-                Toast.makeText(getApplicationContext(), "페어링된 장치가 없습니다.", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(getApplicationContext(), "블루투스가 비활성화 되어 있습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    void connectSelectedDevice(String selectedDeviceName) {
-        for (BluetoothDevice tempDevice : mPairedDevices) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getApplicationContext(), "블루투스 권한이 적용되지 않았습니다.", Toast.LENGTH_LONG).show();
-                return;
-            }
-            if (selectedDeviceName.equals(tempDevice.getName())) {
-                mBluetoothDevice = tempDevice;
-                break;
-            }
-        }
-        try
-        {
-            mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(BT_UUID);
-            mBluetoothSocket.connect();
-            mThreadConnectedBluetooth = BluetoothManager.getInstance();
-            mThreadConnectedBluetooth.setBluetoothHandler(mBluetoothHandler);
-            mThreadConnectedBluetooth.startConnectedThread(mBluetoothSocket);
-            mBluetoothHandler.obtainMessage(BT_CONNECTING_STATUS, 1, -1).sendToTarget();
-        }
-        catch (IOException e)
-        {
-            Toast.makeText(getApplicationContext(), "블루투스 연결 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
-        }
-
     }
 }
 
