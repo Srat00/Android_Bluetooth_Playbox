@@ -56,21 +56,21 @@ public class ReactionTimeTester {
             startTime = System.currentTimeMillis(); // 타이머 시작
             isReadyToMeasure = true;
             hasMeasured = false; // 측정 여부 초기화
-            startTimeout(); // 7초 타이머 시작
+            // startTimeout(); // 7초 타이머 시작
         }, delay);
     }
 
-    private void startTimeout() {
-        timeoutRunnable = () -> {
-            if (isReadyToMeasure) {
-                if (!hasMeasured) {
-                    my_score = 7000; // 7초로 설정
-                }
-                showResult();
-            }
-        };
-        handler.postDelayed(timeoutRunnable, 7000); // 7초 후 실행
-    }
+//    private void startTimeout() {
+//        timeoutRunnable = () -> {
+//            if (isReadyToMeasure) {
+//                if (!hasMeasured) {
+//                    my_score = 7000; // 7초로 설정
+//                }
+//                showResult();
+//            }
+//        };
+//        handler.postDelayed(timeoutRunnable, 7000); // 7초 후 실행
+//    }
 
     public void measureReactionTime() {
         if (isReadyToMeasure && !hasMeasured) {
@@ -81,9 +81,9 @@ public class ReactionTimeTester {
 
             changeButton.setEnabled(false);
             isReadyToMeasure = false;
-
-            long remainingTime = 7000 - reactionTime;
-            handler.postDelayed(this::showResult, remainingTime); // 남은 시간 후 결과 표시
+            showResult();
+            //long remainingTime = 7000 - reactionTime;
+            //handler.postDelayed(this::showResult, remainingTime); // 남은 시간 후 결과 표시
         }
     }
 
@@ -91,10 +91,12 @@ public class ReactionTimeTester {
         //적의 스코어를 얻어오는 것.
         startBtn.setEnabled(true);
         changeButton.setText("Reaction Time: " + my_score + " ms");
-        if (my_score < enemy_score) {
-            text_of_result.setText("당신의 승리입니다!");
-        } else {
-            text_of_result.setText("당신의 패배입니다!");
+        if (my_score < 300) {
+            text_of_result.setText("20대의 속도이신데요?");
+        } else if(my_score > 300 && my_score < 600) {
+            text_of_result.setText("생각보다 좀 느리시네요");
+        }else {
+            text_of_result.setText("흠......");
         }
     }
 }
