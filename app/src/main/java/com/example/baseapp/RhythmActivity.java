@@ -1,27 +1,28 @@
 package com.example.baseapp;
 
-
+import android.animation.ObjectAnimator;
+import android.animation.AnimatorSet;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import android.media.MediaPlayer;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RhythmActivity extends AppCompatActivity {
     private TextView lastTime;
-    private TextView touchTime;
     private long startTime;
     private long[] meTouchArray;
     private long[] youTouchArray;
     private int meTouchCount;
     private int youTouchCount;
     private boolean timerFinished = false;
-    private boolean timerStarted = false; // 타이머가 시작되었는지 여부를 확인하는 변수
-    private boolean youMode = false; // You 모드인지 여부를 확인하는 변수
-    //private MediaPlayer correctSound;
-    //private MediaPlayer wrongSound; //wrongsound mp3 못찾음
+    private boolean timerStarted = false;
+    private boolean youMode = false;
+    private MediaPlayer sound1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,141 +30,128 @@ public class RhythmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rhythm);
 
         lastTime = findViewById(R.id.lastTime);
-        touchTime = findViewById(R.id.touchTime);
-        Button me = findViewById(R.id.me);
-        Button you = findViewById(R.id.you);
         Button startTimer = findViewById(R.id.startTimer);
-        //correctSound = MediaPlayer.create(this, R.raw.correct_sound);
-        //wrongSound = MediaPlayer.create(this, R.raw.wrong_sound);
-        // 배열 초기화
+        RelativeLayout rootView = findViewById(R.id.rootView);
 
-        meTouchArray = new long[10]; // 예시로 10개의 요소를 가진 배열
-        youTouchArray = new long[10]; // 예시로 10개의 요소를 가진 배열
+        sound1 = MediaPlayer.create(this, R.raw.sound1);
+
+        meTouchArray = new long[10];
+        youTouchArray = new long[10];
 
         startTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (timerStarted) {
-                    return; // 타이머가 이미 시작된 경우 무시
+                    return;
                 }
 
-                new CountDownTimer(10000, 100) { // 10초 동안 0.1초 간격으로 실행
+                new CountDownTimer(10000, 100) {
                     public void onTick(long millisUntilFinished) {
-                        // 타이머가 줄어들 때마다 실행되는 코드
                         lastTime.setText("남은 시간: " + millisUntilFinished / 1000 + "." + (millisUntilFinished / 100) % 10 + " 초");
                     }
 
                     public void onFinish() {
-                        // 타이머가 끝났을 때 실행되는 코드
                         lastTime.setText("타이머 종료");
                         timerFinished = true;
-                        timerStarted = false; // 타이머 종료 상태로 설정
-                        youMode = !youMode; // You 모드로 전환
+                        timerStarted = false;
                         if (youMode) {
-                            lastTime.setText("You 모드: Me 버튼과 시간 비교하세요.");
+                            checkSuccess();
+                        } else {
+                            youMode = true;
+                            lastTime.setText("You 모드: 터치하여 시간을 기록하세요.");
                         }
                     }
                 }.start();
 
-                // 타이머 시작 시간 기록
                 startTime = System.currentTimeMillis();
-                timerStarted = true; // 타이머가 시작되었음을 표시
-                timerFinished = false; // 타이머가 종료되지 않았음을 표시
+                timerStarted = true;
+                timerFinished = false;
 
                 if (!youMode) {
-                    meTouchCount = 0; // 터치 카운트를 초기화
+                    meTouchCount = 0;
                 } else {
-                    youTouchCount = 0; // 터치 카운트를 초기화
-                }
-                touchTime.setText(""); // 기록된 시간 초기화
-            }
-        });
-
-        // me 버튼 클릭 이벤트 처리
-        me.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!timerStarted) {
-                    touchTime.setText("타이머가 시작되지 않았습니다.");
-                    return;
-                }
-
-                if (timerFinished) {
-                    touchTime.setText("타이머가 종료되어 더 이상 저장할 수 없습니다.");
-                    return;
-                }
-
-                // 버튼을 클릭했을 때 현재 시간을 배열에 저장
-                if (meTouchCount < meTouchArray.length) {
-                    meTouchArray[meTouchCount] = (System.currentTimeMillis() - startTime) / 100;
-                    meTouchCount++;
-                    //correctSound.start();
-
-                    // 배열 내용을 텍스트뷰에 출력
-                    String touchText = "";
-                    for (int i = 0; i < meTouchCount; i++) {
-                        touchText += "Me 터치 시간 " + (i + 1) + ": " + meTouchArray[i] / 10 + "." + (meTouchArray[i] % 10) + "초\n";
-                    }
-                    touchTime.setText(touchText);
-                } else {
-                    touchTime.setText("더 이상 저장할 수 없습니다.");
+                    youTouchCount = 0;
                 }
             }
         });
 
-        // you 버튼 클릭 이벤트 처리
-        you.setOnClickListener(new View.OnClickListener() {
+        rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if (!youMode) {
-                    touchTime.setText("You 모드가 아닙니다. Start 버튼을 눌러 타이머를 시작하세요.");
-                    return;
-                }
-
+            public boolean onTouch(View v, MotionEvent event) {
                 if (!timerStarted) {
-                    touchTime.setText("타이머가 시작되지 않았습니다.");
-                    return;
+                    lastTime.setText("타이머가 시작되지 않았습니다.");
+                    return false;
                 }
 
                 if (timerFinished) {
-                    touchTime.setText("타이머가 종료되어 더 이상 저장할 수 없습니다.");
-                    return;
+                    lastTime.setText("타이머가 종료되어 더 이상 저장할 수 없습니다.");
+                    return false;
                 }
 
-                // 현재 시간을 기록
-                long currentTime = (System.currentTimeMillis() - startTime) / 100;
-
-                // 버튼을 클릭했을 때 현재 시간을 배열에 저장
-                if (youTouchCount < youTouchArray.length) {
-                    youTouchArray[youTouchCount] = currentTime;
-                    youTouchCount++;
-
-                    // 배열 내용을 텍스트뷰에 출력
-                    String touchText = "";
-                    for (int i = 0; i < youTouchCount; i++) {
-                        touchText += "You 터치 시간 " + (i + 1) + ": " + youTouchArray[i] / 10 + "." + (youTouchArray[i] % 10) + "초\n";
-                    }
-                    touchTime.setText(touchText);
-                } else {
-                    touchTime.setText("더 이상 저장할 수 없습니다.");
-                }
-
-                // 기록된 시간과 ±0.5초 오차를 가지고 비교
-                boolean matchFound = false;
-                for (int i = 0; i < meTouchCount; i++) {
-                    if (Math.abs(currentTime - meTouchArray[i]) <= 5) {
-                        matchFound = true;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        sound1.setVolume(0.0f, 0.0f); // 볼륨을 0으로 설정하여 음소거
                         break;
-                    }
-                }
+                    case MotionEvent.ACTION_UP:
+                        long currentTime = System.currentTimeMillis();
+                        long touchDuration = (currentTime - startTime) / 100;
 
-                if (matchFound) {
-                    touchTime.setText("맞았습니다!");
-                } else {
-                    touchTime.setText("틀렸습니다.");
+                        if (youMode) {
+                            if (youTouchCount < youTouchArray.length) {
+                                youTouchArray[youTouchCount] = touchDuration;
+                                youTouchCount++;
+                            } else {
+                                lastTime.setText("더 이상 저장할 수 없습니다.");
+                            }
+                        } else {
+                            if (meTouchCount < meTouchArray.length) {
+                                meTouchArray[meTouchCount] = touchDuration;
+                                meTouchCount++;
+                            } else {
+                                lastTime.setText("더 이상 저장할 수 없습니다.");
+                            }
+                        }
+                        sound1.setVolume(1.0f, 1.0f); // 볼륨을 원래대로 설정
+                        sound1.start(); // 터치할 때마다 sound1 재생
+                        shakeBackground();
+                        break;
                 }
+                return true;
             }
         });
     }
-}
 
+    private void checkSuccess() {
+        int successCount = 0;
+        for (int i = 0; i < Math.min(meTouchCount, youTouchCount); i++) {
+            if (Math.abs(meTouchArray[i] - youTouchArray[i]) <= 1) { // ±0.1초 오차
+                successCount++;
+            }
+        }
+
+        if (successCount >= 8) {
+            lastTime.setText("성공!");
+        } else {
+            lastTime.setText("실패!");
+        }
+    }
+
+    private void shakeBackground() {
+        View rootView = findViewById(R.id.rootView);
+        ObjectAnimator shakeAnimatorX = ObjectAnimator.ofFloat(rootView, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0);
+        ObjectAnimator shakeAnimatorY = ObjectAnimator.ofFloat(rootView, "translationY", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(shakeAnimatorX, shakeAnimatorY);
+        animatorSet.setDuration(500);
+        animatorSet.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (sound1 != null) {
+            sound1.release();
+            sound1 = null;
+        }
+    }
+}

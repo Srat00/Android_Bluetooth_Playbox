@@ -10,57 +10,67 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="남은 시간: 10"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/countTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="터치 횟수: 0"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
-
-    <View
-        android:id="@+id/purpleArea"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/holo_purple"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/meButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Me"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/youButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/resultButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="결과"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/resultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="결과가 여기에 표시됩니다"
         android:textSize="24sp"
-        android:layout_gravity="center"/>
+        android:layout_marginBottom="16dp" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:layout_marginBottom="16dp">
+
+        <!-- 각 구역의 버튼을 정의합니다. -->
+        <Button android:id="@+id/button1" style="@style/GridButtonRed" />
+        <Button android:id="@+id/button2" style="@style/GridButtonOrange" />
+        <Button android:id="@+id/button3" style="@style/GridButtonYellow" />
+        <Button android:id="@+id/button4" style="@style/GridButtonGreen" />
+        <Button android:id="@+id/button5" style="@style/GridButtonBlue" />
+        <Button android:id="@+id/button6" style="@style/GridButtonIndigo" />
+        <Button android:id="@+id/button7" style="@style/GridButtonPurple" />
+        <Button android:id="@+id/button8" style="@style/GridButtonWhite" />
+        <Button android:id="@+id/button9" style="@style/GridButtonRed" /> <!-- 흰색이 중복되어 빨강으로 대체 -->
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/meButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Me" />
+
+        <Button
+            android:id="@+id/youButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You" />
+
+        <Button
+            android:id="@+id/resultButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="결과" />
+    </LinearLayout>
 
 </LinearLayout>
