@@ -1,6 +1,7 @@
 package com.example.baseapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -11,6 +12,8 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.view.Display;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GyroScope extends AppCompatActivity {
@@ -27,6 +30,7 @@ public class GyroScope extends AppCompatActivity {
     private long myTime = 0;
     private long enemyTime = 0;
     private static final long GAME_DURATION = 30000; // 30 seconds
+    private int goal = 10;
     private boolean gameActive = true;
 
     public long getMyTime() {
@@ -48,6 +52,7 @@ public class GyroScope extends AppCompatActivity {
         ballView = new BallView(this);
         setContentView(ballView);
         ballView.onSizeChanged(screenWidth, screenHeight, 640, 320);
+        ballView.setBackgroundColor(Color.WHITE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         gyroscopeSensorListener = new SensorEventListener() {
@@ -84,7 +89,7 @@ public class GyroScope extends AppCompatActivity {
         if (ballView.isBallOnTarget() && !isOnTarget) {
             isOnTarget = true;
             startTime = SystemClock.elapsedRealtime();
-            handler.postDelayed(targetRunnable, 1000);
+            handler.postDelayed(targetRunnable, 10); //공과 몇밀리초간 겹쳐져있는가
         } else if (!ballView.isBallOnTarget() && isOnTarget) {
             isOnTarget = false;
             handler.removeCallbacks(targetRunnable);
@@ -97,8 +102,12 @@ public class GyroScope extends AppCompatActivity {
             if (isOnTarget) {
                 totalTime += SystemClock.elapsedRealtime() - startTime;
                 targetCount++;
-                if (targetCount < 5 && gameActive) {
+                if (targetCount < goal && gameActive) {
                     generateRandomTarget();
+                }
+                else if (targetCount >= goal && gameActive)
+                {
+                    displayTotalTime();
                 }
                 isOnTarget = false;
             }
@@ -110,6 +119,11 @@ public class GyroScope extends AppCompatActivity {
         int screenHeight = ballView.getHeight();
         int targetX = (int) (Math.random() * screenWidth);
         int targetY = (int) (Math.random() * screenHeight);
+        // 공이 불가능한 위치에 생성되지 않도록 조치.
+        if (targetX >= screenWidth - 50) {targetX -= 50;}
+        if (targetX <= 50) {targetX += 50;}
+        if (targetY >= screenHeight - 50) {targetY -= 50;}
+        if (targetY <= 50) {targetY += 50;}
         ballView.setTargetPosition(targetX, targetY);
     }
 
@@ -119,9 +133,7 @@ public class GyroScope extends AppCompatActivity {
         gameActive = false;
         myTime = totalTime;
         Intent intent1 = new Intent(this, ResultActivity.class);
-        //적의 스코어 설정.
         intent1.putExtra("TOTAL_TIME", myTime);
-        intent1.putExtra("ENEMY_TOTAL_TIME", enemyTime);
         startActivity(intent1);
 
         // Finish the GyroScope activity and return to StartActivity

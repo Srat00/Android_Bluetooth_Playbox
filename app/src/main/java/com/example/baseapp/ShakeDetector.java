@@ -118,13 +118,8 @@ public class ShakeDetector extends AppCompatActivity implements SensorEventListe
             startButton.setVisibility(View.VISIBLE);
             title.setText("쉐킷쉐킷");
             title.setTextColor(Color.parseColor("#000000"));
-            if(my_score>enemy_score) {
-                shakeCountTextView.setText("당신의 점수는 : "+my_score+" , 승리!!");
-            }else if(my_score==enemy_score){
-                shakeCountTextView.setText("당신의 점수는 : "+my_score+" , 무승부!!");
-            }else{
-                shakeCountTextView.setText("당신의 점수는 : "+my_score+" , 패배..");
-            }
+            shakeCountTextView.setText("당신의 점수는 : "+my_score);
+
         }
     };
 

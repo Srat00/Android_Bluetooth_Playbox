@@ -20,19 +20,19 @@ public class TouchActivity_dongwon extends AppCompatActivity {
     long startTime;
     long endTime;
     List<Button> buttons;
-    String[] colors = {"#80FF0000", "#80FFA500", "#80FFFF00", "#80008000", "#800000FF", "#804B0082", "#80800080", "#80FFFFFF", "black"}; // 빨강, 주황, 노랑, 초록, 파랑, 남색, 보라, 흰색, 검정
+    String[] colors = {"#80FF0000", "#80FFA500", "#80FFFF00", "#80008000", "#800000FF", "#80800080", "#80964B00", "#80EEEEEE", "#80111111"}; // 빨강, 주황, 노랑, 초록, 파랑, 보라, 갈색, 옅은 회색, 진한 회색
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touch2); // 레이아웃 파일을 설정
 
+
         timerTextView = findViewById(R.id.timerTextView);
         countTextView = findViewById(R.id.countTextView);
         resultTextView = findViewById(R.id.resultTextView);
         GridLayout gridLayout = findViewById(R.id.gridLayout); // gridLayout ID 수정
         Button meButton = findViewById(R.id.meButton);
-        Button youButton = findViewById(R.id.youButton);
         Button resultButton = findViewById(R.id.resultButton);
 
         // GridLayout 안의 버튼들 가져오기
@@ -46,15 +46,6 @@ public class TouchActivity_dongwon extends AppCompatActivity {
 
         // Me 버튼 클릭 시
         meButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetGame();
-                startTimer();
-            }
-        });
-
-        // You 버튼 클릭 시
-        youButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetGame();

@@ -75,49 +75,58 @@ public class RhythmActivity extends AppCompatActivity {
             }
         });
 
-        rootView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (!timerStarted) {
-                    lastTime.setText("타이머가 시작되지 않았습니다.");
-                    return false;
-                }
-
-                if (timerFinished) {
-                    lastTime.setText("타이머가 종료되어 더 이상 저장할 수 없습니다.");
-                    return false;
-                }
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        sound1.setVolume(0.0f, 0.0f); // 볼륨을 0으로 설정하여 음소거
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        long currentTime = System.currentTimeMillis();
-                        long touchDuration = (currentTime - startTime) / 100;
-
-                        if (youMode) {
-                            if (youTouchCount < youTouchArray.length) {
-                                youTouchArray[youTouchCount] = touchDuration;
-                                youTouchCount++;
-                            } else {
-                                lastTime.setText("더 이상 저장할 수 없습니다.");
-                            }
-                        } else {
-                            if (meTouchCount < meTouchArray.length) {
-                                meTouchArray[meTouchCount] = touchDuration;
-                                meTouchCount++;
-                            } else {
-                                lastTime.setText("더 이상 저장할 수 없습니다.");
-                            }
-                        }
-                        sound1.setVolume(1.0f, 1.0f); // 볼륨을 원래대로 설정
-                        sound1.start(); // 터치할 때마다 sound1 재생
-                        shakeBackground();
-                        break;
-                }
-                return true;
+        rootView.setOnTouchListener((v, event) -> {
+            if (!timerStarted) {
+                lastTime.setText("타이머가 시작되지 않았습니다.");
+                return false;
             }
+
+            if (timerFinished) {
+                lastTime.setText("타이머가 종료되어 더 이상 저장할 수 없습니다.");
+                return false;
+            }
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    sound1.setVolume(0.0f, 0.0f); // 볼륨을 0으로 설정하여 음소거
+                    break;
+                case MotionEvent.ACTION_UP:
+                    long currentTime = System.currentTimeMillis();
+                    long touchDuration = (currentTime - startTime) / 100;
+
+                    if (youMode) {
+                        if (youTouchCount < youTouchArray.length)
+                        {
+                            youTouchArray[youTouchCount] = touchDuration;
+                            youTouchCount++;
+                            sound1.setVolume(1.0f, 1.0f); // 볼륨을 원래대로 설정
+                        }
+                        else
+                        {
+                            sound1.setVolume(0.0f, 0.0f); // 볼륨을 0으로 설정하여 음소거
+                            lastTime.setText("더 이상 저장할 수 없습니다.");
+                        }
+                    }
+                    else
+                    {
+                        if (meTouchCount < meTouchArray.length)
+                        {
+                            meTouchArray[meTouchCount] = touchDuration;
+                            meTouchCount++;
+                            sound1.setVolume(1.0f, 1.0f); // 볼륨을 원래대로 설정
+                        }
+                        else
+                        {
+                            sound1.setVolume(0.0f, 0.0f); // 볼륨을 0으로 설정하여 음소거
+                            lastTime.setText("더 이상 저장할 수 없습니다.");
+                        }
+                    }
+
+                    sound1.start(); // 터치할 때마다 sound1 재생
+                    shakeBackground();
+                    break;
+            }
+            return true;
         });
     }
 
@@ -130,9 +139,9 @@ public class RhythmActivity extends AppCompatActivity {
         }
 
         if (successCount >= 8) {
-            lastTime.setText("성공!");
+            lastTime.setText("80% 이상 따라했습니다! \n 성공!");
         } else {
-            lastTime.setText("실패!");
+            lastTime.setText("80% 이상 따라하지 못했습니다... \n 실패!");
         }
     }
 

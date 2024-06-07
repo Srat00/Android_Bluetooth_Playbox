@@ -8,28 +8,30 @@
     android:background="#f0f8ff">
 
 
-<TextView
+    <TextView
         android:id="@+id/result_of_race"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="win? or defeat?"
-        android:textSize="24sp" />
+        android:layout_width="184dp"
+        android:layout_height="81dp"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:text="결과"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="48sp" />
 
     <TextView
         android:id="@+id/resultTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/enemyTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="168dp"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/return_to_start"
-        android:layout_width="132dp"
-        android:layout_height="128dp"
+        android:layout_width="138dp"
+        android:layout_height="66dp"
+        android:fontFamily="@font/nanum_gothic_bold"
         android:text="돌아가기" />
 </LinearLayout>

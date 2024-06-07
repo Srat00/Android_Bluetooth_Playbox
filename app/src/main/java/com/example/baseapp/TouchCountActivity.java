@@ -19,16 +19,18 @@ public class TouchCountActivity extends AppCompatActivity {
 
         touchCountTextView = findViewById(R.id.touchCountTextView);
         touchAreaView = findViewById(R.id.touchAreaView);
-
-        touchAreaView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // 화면 터치 시 횟수 증가
-                touchCount++;
-                // TextView 업데이트
-                touchCountTextView.setText("Touch Count: " + touchCount);
-                return true;
+        
+        //터치 카운트 증가
+        touchAreaView.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // 화면 터치 시 횟수 증가
+                    touchCount++;
+                    // TextView 업데이트
+                    touchCountTextView.setText("Touch Count: " + touchCount);
+                    break;
             }
+            return true;
         });
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -9,62 +10,88 @@
         android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_gothic_bold"
         android:text="남은 시간: 10"
+        android:textColor="#000000"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/countTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_gothic_bold"
         android:text="터치 횟수: 0"
+        android:textColor="#000000"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/resultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/nanum_gothic_bold"
         android:text="결과가 여기에 표시됩니다"
-        android:textSize="24sp"
-        android:layout_marginBottom="16dp" />
+        android:textColor="#000000"
+        android:textSize="24sp" />
 
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:layout_weight="1"
         android:columnCount="3"
-        android:rowCount="3"
-        android:layout_marginBottom="16dp">
+        android:rowCount="3">
 
         <!-- 각 구역의 버튼을 정의합니다. -->
-        <Button android:id="@+id/button1" style="@style/GridButtonRed" />
-        <Button android:id="@+id/button2" style="@style/GridButtonOrange" />
-        <Button android:id="@+id/button3" style="@style/GridButtonYellow" />
-        <Button android:id="@+id/button4" style="@style/GridButtonGreen" />
-        <Button android:id="@+id/button5" style="@style/GridButtonBlue" />
-        <Button android:id="@+id/button6" style="@style/GridButtonIndigo" />
-        <Button android:id="@+id/button7" style="@style/GridButtonPurple" />
-        <Button android:id="@+id/button8" style="@style/GridButtonWhite" />
-        <Button android:id="@+id/button9" style="@style/GridButtonRed" /> <!-- 흰색이 중복되어 빨강으로 대체 -->
+        <Button
+            android:id="@+id/button1"
+            style="@style/GridButtonRed" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/GridButtonOrange" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/GridButtonYellow" />
+
+        <Button
+            android:id="@+id/button4"
+            style="@style/GridButtonGreen" />
+
+        <Button
+            android:id="@+id/button5"
+            style="@style/GridButtonBlue" />
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/GridButtonIndigo" />
+
+        <Button
+            android:id="@+id/button7"
+            style="@style/GridButtonPurple" />
+
+        <Button
+            android:id="@+id/button8"
+            style="@style/GridButtonWhite" />
+
+        <Button
+            android:id="@+id/button9"
+            style="@style/GridButtonBlue" /> <!-- 흰색이 중복되어 파랑으로 대체 -->
     </GridLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/meButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Me" />
-
-        <Button
-            android:id="@+id/youButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You" />
+            android:text="시작" />
 
         <Button
             android:id="@+id/resultButton"
