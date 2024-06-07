@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="4dp"
+    android:background="#f0f8ff">
+
+    <ImageView
+        android:id="@+id/compass_background"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/compass_background"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/mini_compass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="109dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="501dp"
+        android:src="@drawable/mini_compass"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/compass_needle"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/compass_needle"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/compass_needle2"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignBottom="@+id/start_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="117dp"
+        android:src="@drawable/compass_needle2"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/current_azimuth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/compass_background"
+        android:layout_centerHorizontal="true"
+        android:text="0°"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/target_azimuth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/compass_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Target: 0 degrees"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/timer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/target_azimuth_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Time: 0 seconds"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <android.widget.Button
+        android:id="@+id/start_button"
+        android:layout_width="161dp"
+        android:layout_height="84dp"
+        android:layout_below="@id/timer_text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="551dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/item_background"
+        android:text="누르면 시작합니다!" />
+
+    <TextView
+        android:id="@+id/winner_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timer_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Winner : "
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/explain_text"
+        android:layout_width="310dp"
+        android:layout_height="293dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="113dp"
+        android:text="상대방보다 먼저 타겟 각도를 향해서 핸드폰을 돌려주시면 됩니다!"
+        android:textSize="24sp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="267dp"
+        android:layout_height="53dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="632dp"
+        android:background="@drawable/background_of_big_title"
+        android:text="   나침반 돌리기"
+        android:textSize="37sp"
+        android:textStyle="bold"
+        tools:ignore="NotSibling" />
+
+
+</RelativeLayout>
