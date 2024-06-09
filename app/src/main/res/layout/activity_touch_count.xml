@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -9,16 +11,63 @@
         android:id="@+id/touchCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/SmashIcon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/nanum_gothic_bold"
         android:text="Touch Count: 0"
         android:textColor="#000000"
         android:textSize="34sp" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:text="화면 격파"
+        android:textColor="#000000"
+        android:textSize="34sp" />
+
+    <ImageView
+        android:id="@+id/SmashIcon"
+        android:layout_width="295dp"
+        android:layout_height="380dp"
+        android:layout_below="@+id/SmashText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/smash" />
+
+    <Button
+        android:id="@+id/touchStartBtn"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="시작" />
+
+    <TextView
+        android:id="@+id/SmashText"
+        android:layout_width="292dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/touchStartBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:text="제한시간 내에 최대한 많이 화면을 누르세요!"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
     <View
         android:id="@+id/touchAreaView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
         android:clickable="true" />
 
 </RelativeLayout>

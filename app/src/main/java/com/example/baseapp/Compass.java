@@ -121,7 +121,7 @@ public class Compass extends AppCompatActivity implements CompassSensor.CompassL
         }
     }
     private void startNeedleAnimation() {
-        compassNeedle2 = findViewById(R.id.compass_needle2); // 시작 전 돌아가는 나침반.
+        compassNeedle2 = findViewById(R.id.logo); // 시작 전 돌아가는 나침반.
         RotateAnimation rotateAnimation = new RotateAnimation(
                 0, 360,
                 Animation.RELATIVE_TO_SELF, 0.5f,

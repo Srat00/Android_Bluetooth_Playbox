@@ -1,18 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RhythmActivity"
-    android:background="@drawable/drum"> <!-- drum.png를 배경으로 설정 -->
+    android:background="@color/white"
+    tools:context=".RhythmActivity"> <!-- drum.png를 배경으로 설정 -->
 
     <TextView
         android:id="@+id/lastTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/RhythmTestText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:text="남은 시간:"
+        android:textColor="#000000"
         android:textSize="24sp" />
 
     <Button
@@ -21,7 +24,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lastTime"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Start" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="318dp"
+        android:layout_height="445dp"
+        android:layout_below="@+id/startTimer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        app:srcCompat="@drawable/drum" />
+
+    <TextView
+        android:id="@+id/RhythmTestText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nanum_gothic_bold"
+        android:text="박자감각 측정"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="34sp" />
 
 </RelativeLayout>

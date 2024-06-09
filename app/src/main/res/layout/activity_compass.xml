@@ -24,7 +24,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
-        android:layout_marginEnd="165dp"
+        android:layout_marginEnd="150dp"
         android:src="@drawable/mini_compass"
         android:visibility="visible" />
 
@@ -38,7 +38,7 @@
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/compass_needle2"
+        android:id="@+id/logo"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_below="@+id/mini_compass"
@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/compass_needle2"
+        android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         android:fontFamily="@font/nanum_gothic_bold"

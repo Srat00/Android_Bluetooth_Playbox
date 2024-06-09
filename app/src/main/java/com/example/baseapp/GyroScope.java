@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -30,7 +31,7 @@ public class GyroScope extends AppCompatActivity {
     private long myTime = 0;
     private long enemyTime = 0;
     private static final long GAME_DURATION = 30000; // 30 seconds
-    private int goal = 10;
+    private int goal = 8;
     private boolean gameActive = true;
 
     public long getMyTime() {
@@ -41,6 +42,7 @@ public class GyroScope extends AppCompatActivity {
         this.enemyTime = enemyTime;
     }
 
+    private MediaPlayer[] sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Display display = getWindowManager().getDefaultDisplay();
@@ -55,6 +57,17 @@ public class GyroScope extends AppCompatActivity {
         ballView.setBackgroundColor(Color.WHITE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
+        sound = new MediaPlayer[8];
+        sound[0] = MediaPlayer.create(this, R.raw.s1);
+        sound[1] = MediaPlayer.create(this, R.raw.s2);
+        sound[2] = MediaPlayer.create(this, R.raw.s3);
+        sound[3] = MediaPlayer.create(this, R.raw.s4);
+        sound[4] = MediaPlayer.create(this, R.raw.s5);
+        sound[5] = MediaPlayer.create(this, R.raw.s6);
+        sound[6] = MediaPlayer.create(this, R.raw.s7);
+        sound[7] = MediaPlayer.create(this, R.raw.s8);
+
         gyroscopeSensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
@@ -109,6 +122,9 @@ public class GyroScope extends AppCompatActivity {
                 {
                     displayTotalTime();
                 }
+
+                sound[targetCount-1].start();
+
                 isOnTarget = false;
             }
         }

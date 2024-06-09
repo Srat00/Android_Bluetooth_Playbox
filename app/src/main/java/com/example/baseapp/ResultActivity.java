@@ -10,11 +10,10 @@ public class ResultActivity extends AppCompatActivity { //자이로볼의 결과
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button retBut=findViewById(R.id.return_to_start);
 
         long totalTime = getIntent().getLongExtra("TOTAL_TIME", 0);
         TextView resultTextView = findViewById(R.id.resultTextView);
-        resultTextView.setText("완주 시간 : " + (totalTime/1000) + " 초");
+        resultTextView.setText("걸린 시간 : " + (totalTime / 1000) + " 초");
 
         setContentView(R.layout.activity_result);
     }
