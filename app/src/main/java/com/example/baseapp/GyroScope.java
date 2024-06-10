@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.Display;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 
@@ -143,7 +144,7 @@ public class GyroScope extends AppCompatActivity {
         ballView.setTargetPosition(targetX, targetY);
     }
 
-    private void displayTotalTime() {
+    public void displayTotalTime() {
         if (!gameActive) return;
 
         gameActive = false;
@@ -153,7 +154,11 @@ public class GyroScope extends AppCompatActivity {
         startActivity(intent1);
 
         // Finish the GyroScope activity and return to StartActivity
-       // finish();
+        // finish();
+    }
+
+    public void displayTotalTime(View view) {
+        displayTotalTime();
     }
 
     private Runnable gameTimerRunnable = new Runnable() {

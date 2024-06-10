@@ -1,5 +1,6 @@
 package com.example.baseapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,4 +36,5 @@ public class ReactionTimeActivity extends AppCompatActivity {
     public void measureReactionTime(View view) {
         reactionTimeTester.measureReactionTime();
     }
+
 }
